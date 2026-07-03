@@ -37,3 +37,23 @@ select * from emp as e1 where sal=
   
   -- disp only departemnt subtotals & grand totals rows produced by rollup(deptno,job)
   select deptno,job,count(*) from emp group by deptno,job with rollup;
+  
+  -- Write a query to display all employees who work in the same department as SMITH
+  select * from emp where deptno=(select deptno from emp where ename='SMITH');
+  
+  -- Write a query to display employees who work in departments having more than 3 employees.
+  
+  select * from emp where deptno in
+  (select deptno from emp group by deptno having count(*)>5);
+  
+  
+  --- 3/7/26
+  use batch72;
+  select * from emp;
+  select * from dept;
+  -- display employees whose sal>3000 along with their department names
+  select *,(select dname from dept as d where d.deptno=emp.deptno) from emp where sal>3000;
+  
+  -- to display employees who work in the accounting department
+  select * from emp where deptno = (select deptno from dept where dname='accounting');
+  
