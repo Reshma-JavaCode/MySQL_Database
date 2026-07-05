@@ -38,6 +38,12 @@ select * from emp as e1 where sal=
   -- disp only departemnt subtotals & grand totals rows produced by rollup(deptno,job)
   select deptno,job,count(*) from emp group by deptno,job with rollup;
   
+select * from emp;
+-- display ename and salary of Second highest salary
+select ename,sal from emp where sal= (select max(sal) from emp where sal<(select max(sal) from emp));
+-- Employees hired before JONES
+select ename,job,hiredate from emp where hiredate<(select hiredate from emp where ename='jones');
+  
   -- Write a query to display all employees who work in the same department as SMITH
   select * from emp where deptno=(select deptno from emp where ename='SMITH');
   
