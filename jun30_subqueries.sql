@@ -55,6 +55,9 @@ select ename,job,hiredate from emp where hiredate<(select hiredate from emp wher
   
   --- 3/7/26
   use batch72;
+  SELECT *
+FROM emp
+CROSS JOIN dept;
   select * from emp;
   select * from dept;
   -- display employees whose sal>3000 along with their department names
