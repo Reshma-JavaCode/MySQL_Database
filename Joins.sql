@@ -36,3 +36,39 @@ union select * from emp right outer join dept on emp.deptno=dept.deptno;
 
 select e1.empno,e1.ename,e1.mgr,e2.empno,e2.ename from emp as e1,emp as e2 
 where e1.empno=e2.mgr;
+
+
+
+
+
+-- 1.Display all employees with their department names.
+
+select e.*,d.dname from emp e inner join dept d on e.deptno=d.deptno;
+
+
+-- 2.Count the number of employees in each department.
+
+select d.dname,count(d.dname) from emp e inner join dept d on e.deptno=d.deptno group by d.dname;
+
+-- 3..Display employees who do not belong to any department.
+
+select e.* from emp e left join dept d on e.deptno=d.deptno where d.deptno is null;
+
+-- 4.Display the employee with the highest salary along with the department name. 
+
+select e.*,d.dname from emp e inner join dept d on e.deptno=d.deptno where sal=(select max(sal) from emp);
+
+-- or
+
+select *,(select dname from dept where emp.deptno=dept.deptno) as depname from emp 
+   where sal=(select max(sal) from emp);
+   
+ -- 1.Find the total salary paid in each department.
+ 
+ select deptno,sum(sal) AS total_salary from emp group by deptno; 
+ select d.dname ,sum(sal) as total_salary from emp e inner join dept d on e.deptno=d.deptno group by d.deptno;
+ 
+ -- 2.Find the total salary of departments where total salary is greater than 10000.
+ 
+select deptno,sum(sal) AS total_salary from emp group by deptno having sum(sal) > 10000;
+
