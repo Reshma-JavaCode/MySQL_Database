@@ -66,3 +66,7 @@ CROSS JOIN dept;
   -- to display employees who work in the accounting department
   select * from emp where deptno = (select deptno from dept where dname='accounting');
   
+  select e.*,d.* from emp e inner join dept d on e.deptno=d.deptno;
+  select * from emp e natural join dept d;
+  
+  select d.* from dept d left join emp e on e.deptno=d.deptno where e.deptno is null;

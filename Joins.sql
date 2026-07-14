@@ -62,7 +62,7 @@ select e.*,d.dname from emp e inner join dept d on e.deptno=d.deptno where sal=(
 
 select *,(select dname from dept where emp.deptno=dept.deptno) as depname from emp 
    where sal=(select max(sal) from emp);
-   
+   use batch72;
  -- 1.Find the total salary paid in each department.
  
  select deptno,sum(sal) AS total_salary from emp group by deptno; 
@@ -72,3 +72,23 @@ select *,(select dname from dept where emp.deptno=dept.deptno) as depname from e
  
 select deptno,sum(sal) AS total_salary from emp group by deptno having sum(sal) > 10000;
 
+-- displaya all employees sorted by department name
+select e.*,d.dname from emp e inner join dept d on e.deptno=d.deptno order by d.dname;
+
+-- to display avg sal of employees in each department  w/o using avg() function.
+
+select deptno,avg(sal) from emp group by deptno;
+
+select deptno,(sum(sal)/count(*)) from emp group by deptno;
+
+-- 1.Display all employees who work under KING.
+
+select * from emp where mgr = (select empno from emp where ename='King');
+
+-- 2.Display employee name and manager name in ascending order of manager name.
+
+select ename,mgr from emp order by mgr asc;
+select e1.ename as employee_name,e2.ename as manager_name from emp e1 join emp e2 on e1.mgr= e2.empno order by e2.ename;
+
+-- Display all departments along with the number of employees in each department.
+select deptno,count(*) from emp group by deptno;
