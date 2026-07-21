@@ -92,3 +92,5 @@ select e1.ename as employee_name,e2.ename as manager_name from emp e1 join emp e
 
 -- Display all departments along with the number of employees in each department.
 select deptno,count(*) from emp group by deptno;
+
+call `new_procedure`(29);

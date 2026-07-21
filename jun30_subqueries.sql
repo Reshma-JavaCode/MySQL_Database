@@ -70,3 +70,14 @@ CROSS JOIN dept;
   select * from emp e natural join dept d;
   
   select d.* from dept d left join emp e on e.deptno=d.deptno where e.deptno is null;
+  select deptno ,count(*) from emp group by deptno having count(*)>1;
+  
+  select job,count(*) from emp group by job;
+  
+  --- select e1.*,count(*) from emp
+  
+  select deptno,job,count(*) from emp group by deptno,job having count(*)=1;
+  
+  
+  select deptno,job from emp where (deptno ,job)in
+  (select deptno,job from emp group by(deptno,job) having count(*)=1);
