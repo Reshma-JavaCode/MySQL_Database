@@ -27,5 +27,3 @@ revoke all privileges, grant option from 'reshma@localhost';
 
 -- removing user
 drop user 'reshma@localhost';
-use batch72;
-call largestOfThreeNumbers(3,3,1);

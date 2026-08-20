@@ -2,6 +2,11 @@ use batch72;
 
 select * from emp;
 
+select empno,sal,comm,sal+ifnull(comm,0) as total from emp;	
+ SELECT sal + IFNULL(comm,0)
+    as earnings
+    FROM emp
+    WHERE empno = eNo;
 
 
 -- disp employees who earn highest sal
@@ -81,3 +86,24 @@ CROSS JOIN dept;
   
   select deptno,job from emp where (deptno ,job)in
   (select deptno,job from emp group by(deptno,job) having count(*)=1);
+  
+  use batch72;
+  select * from emp where sal between 2000 and 5000;
+  select * from emp;
+  select count(empno) from emp where deptno=30;
+  select max(sal) from emp;
+  select * from account;
+  create table account(account_id int primary key,
+  account_holder varchar(50) not null,
+  balance decimal(10,2) not null);
+  
+  insert into account values(101,'Reshma',50000.00);
+  INSERT INTO account VALUES
+(102, 'Rahul', 25000.50),
+(103, 'Priya', 75000.00);
+
+select * from account;
+-- transfer_money(from_account, to_account, amount)
+create table transfer_money(from_account int, to_account int,amount decimal(10,2));
+drop table transfer_money;
+call transfer_money(102,101,5000);
