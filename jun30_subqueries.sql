@@ -1,4 +1,8 @@
 use batch72;
+drop table student4;
+rollback;
+select * from student4;
+
 
 select * from emp;
 
@@ -93,7 +97,7 @@ CROSS JOIN dept;
   select count(empno) from emp where deptno=30;
   select max(sal) from emp;
   select * from account;
-  create table account(account_id int primary key,
+  create table account(account_id int primary key ,
   account_holder varchar(50) not null,
   balance decimal(10,2) not null);
   

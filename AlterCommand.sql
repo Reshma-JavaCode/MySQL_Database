@@ -1,7 +1,7 @@
 use batch72;
 
 create table student2(
-sno int,
+sno int ,
 sname varchar(30) not null,
 marks int,
 primary key(sno));
