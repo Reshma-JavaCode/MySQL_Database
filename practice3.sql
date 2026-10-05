@@ -1,0 +1,113 @@
+use batch72;
+drop table student4;
+rollback;
+select * from student3;
+
+
+select * from emp;
+
+select empno,sal,comm,sal+ifnull(comm,0) as total from emp;	
+ SELECT sal + IFNULL(comm,0)
+    as earnings
+    FROM emp
+    WHERE empno = eNo;
+
+
+-- disp employees who earn highest sal
+select* from emp where sal = (select max(sal) from emp);
+
+-- second highest sal
+select max(sal) from emp where sal<(select max(sal) from emp);
+
+-- 3rd highest sal
+select max(sal) from emp where sal<(select max(sal) from emp where sal<(select max(sal) from emp where sal<(select max(sal) from emp)));
+
+-- disp employee except highest sal employees
+select * from emp where sal<>(select max(sal) from emp);
+
+-- disp emp whose sal in between avg and max of sal
+
+select * from emp where sal between
+(select avg(sal) from emp)and (select max(sal) from emp);
+
+-- same output 1st july
+-- disp employees earning max sal in each department
+
+select deptno,max(sal) from emp group by deptno; 
+select * from emp where sal in (select max(sal) from emp group by deptno);
+select * from emp as e1 where sal=
+  (select max(sal) from emp as e2 where e1.deptno= e2.deptno);
+  
+  -- display employees who work in same dept as Blake
+  select * from emp where deptno=(select deptno from emp where ename='Blake');
+  
+  -- disp emp who earn sal less thaan jones
+  select * from emp where sal< (select sal from emp where ename='jones');
+  
+  -- disp only departemnt subtotals & grand totals rows produced by rollup(deptno,job)
+  select deptno,job,count(*) from emp group by deptno,job with rollup;
+  
+select * from emp;
+-- display ename and salary of Second highest salary
+select ename,sal from emp where sal= (select max(sal) from emp where sal<(select max(sal) from emp));
+-- Employees hired before JONES
+select ename,job,hiredate from emp where hiredate<(select hiredate from emp where ename='jones');
+  
+  -- Write a query to display all employees who work in the same department as SMITH
+  select * from emp where deptno=(select deptno from emp where ename='SMITH');
+  
+  -- Write a query to display employees who work in departments having more than 3 employees.
+  
+  select * from emp where deptno in
+  (select deptno from emp group by deptno having count(*)>5);
+  
+  
+  --- 3/7/26
+  use batch72;
+  SELECT *
+FROM emp
+CROSS JOIN dept;
+  select * from emp;
+  select * from dept;
+  -- display employees whose sal>3000 along with their department names
+  select *,(select dname from dept as d where d.deptno=emp.deptno) from emp where sal>3000;
+  
+  -- to display employees who work in the accounting department
+  select * from emp where deptno = (select deptno from dept where dname='accounting');
+  
+  select e.*,d.* from emp e inner join dept d on e.deptno=d.deptno;
+  select * from emp e natural join dept d;
+  
+  select d.* from dept d left join emp e on e.deptno=d.deptno where e.deptno is null;
+  select deptno ,count(*) from emp group by deptno having count(*)>1;
+  
+  select job,count(*) from emp group by job;
+  
+  --- select e1.*,count(*) from emp
+  
+  select deptno,job,count(*) from emp group by deptno,job having count(*)=1;
+  
+  
+  select deptno,job from emp where (deptno ,job)in
+  (select deptno,job from emp group by(deptno,job) having count(*)=1);
+  
+  use batch72;
+  select * from emp where sal between 2000 and 5000;
+  select * from emp;
+  select count(empno) from emp where deptno=30;
+  select max(sal) from emp;
+  select * from account;
+  create table account(account_id int primary key ,
+  account_holder varchar(50) not null,
+  balance decimal(10,2) not null);
+  
+  insert into account values(101,'Reshma',50000.00);
+  INSERT INTO account VALUES
+(102, 'Rahul', 25000.50),
+(103, 'Priya', 75000.00);
+
+select * from account;
+-- transfer_money(from_account, to_account, amount)
+create table transfer_money(from_account int, to_account int,amount decimal(10,2));
+drop table transfer_money;
+call transfer_money(102,101,5000);
